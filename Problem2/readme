@@ -1,0 +1,9 @@
+# linux/init.h: No such file or directory solution
+
+```
+cd /usr/src/linux-hwe-6.11-headers-6.11.0-19/include/linux
+```
+check if there has a init.h
+```
+ll init.h
+```
