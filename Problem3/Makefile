@@ -1,7 +1,7 @@
-obj-m += simple.o
+obj-m += hellomodule.o
 
 KDIR := /lib/modules/$(shell uname -r)/build
-PWD  := $(shell pwd)
+PWD := $(shell pwd)
 
 all:
 	$(MAKE) -C $(KDIR) M=$(PWD) modules
