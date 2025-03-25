@@ -1,3 +1,44 @@
+# Problem 1
+
+1. 將 hostname 修改成 csc061
+```bash
+sudo hostnemactl set-hostname csc061
+sudo nano /etc/hosts
+```
+確認terminal的output是否跟下面一樣
+```bash
+127.0.0.1	localhost
+127.0.1.1	csc061
+```
+如果一樣就可以儲存了
+```bash
+sudo systemctl restart systemd-hostnamed
+```
+2. 建立學號帳號
+```bash
+sudo adduser yourstudentnumber
+```
+系統會要求輸入密碼與相關資訊，依需求輸入或按 Enter 跳過(可以全都按enter跳過)
+
+給學號帳號 sudo 權限：
+```bash
+sudo usermod -aG sudo yourstudentnumber
+```
+
+3. 切換到學號帳號
+```bash
+su - yourstudentnumber
+```
+或者回到登入介面再重新登入學號帳號
+接著應該能在terminal看到開頭變:
+```bash
+yourstudentnumber@csc061:~$
+```
+我是有正常顯示，如果沒有可以試一下下面的prompt:
+```bash
+exec bash
+```
+
 # Problem 2
 *可以試試看不動標頭檔看看能不能做出來，因為我Problem 3沒動一樣能做*
 ## C program (跟pdf中的有小改 下面註解標出)
@@ -29,13 +70,13 @@ MODULE_AUTHOR("SGG");
 ```
 ### Linux/init.h: No such file or directory 解決方法
 
-1.找找看有沒有init.h
+1. 找找看有沒有init.h
 ```bash
 cd /usr/src/linux-hwe-6.11-headers-6.11.0-19/include/linux
 ll init.h
 ```
 
-2.有的話搬到linux裡，這樣標頭檔就吃的到了
+2. 有的話搬到linux裡，這樣標頭檔就吃的到了
 ```bash
 sudo cp init.h /usr/include/linux #要加sudo不然權限不夠
 ```
@@ -44,7 +85,7 @@ sudo cp init.h /usr/include/linux #要加sudo不然權限不夠
 sudo apt install linux-headers-$(uname -r)
 ```
 
-3.有些標頭檔中也含有其他標頭檔，建議ctrl+滑鼠點擊去看看有沒有什麼標頭檔沒吃到
+3. 有些標頭檔中也含有其他標頭檔，建議ctrl+滑鼠點擊去看看有沒有什麼標頭檔沒吃到
 
 搞到標頭檔沒報錯才開始makefile
 
@@ -64,7 +105,7 @@ clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
 ```
 
-2.make
+2. make
 ```bash
 make
 ```
@@ -182,7 +223,7 @@ MODULE_AUTHOR("SGG");
 ```
 
 ## makefile
-1.與 Problem2 相同建makefile檔
+1. 與 Problem2 相同建makefile檔
 ```makefile
 obj-m += your_cfilename.o
 
@@ -195,7 +236,7 @@ all:
 clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
 ```
-2.make
+2. make
 ```bash
 make
 ```
