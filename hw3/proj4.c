@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-struct timeval start, end;
+
 unsigned long usec;
 
 #define N_LIST (sizeof(original_list) / sizeof(int))
@@ -25,8 +25,8 @@ int sum;
 void *runner(void *param);
 int *listncopy(int *dst, int *src, int n);
 void print_list(char *id, char *msg, int *first, int n);
-float do_sort(char *id, int *first, int n);
-float do_merge(char *id, int *first, int n);
+unsigned long do_sort(char *id, int *first, int n);
+unsigned long do_merge(char *id, int *first, int n);
 
 int main(int argc, char *argv[])
 {
@@ -89,8 +89,9 @@ void print_list(char *id, char *msg, int *first, int n)
     printf("\n");
 }
 
-float do_sort(char *id, int *first, int n)
+unsigned long do_sort(char *id, int *first, int n)
 {
+    struct timeval start, end;
     print_list(id, "Sub-Old", first, n);
     gettimeofday(&start, NULL);
     for (int i = 1; i < n; i++)
@@ -111,8 +112,9 @@ float do_sort(char *id, int *first, int n)
     return usec_elapsed(start, end);
 }
 
-float do_merge(char *id, int *first, int n)
+unsigned long do_merge(char *id, int *first, int n)
 {
+    struct timeval start, end;
     gettimeofday(&start, NULL);
 
     int mid = n / 2;
